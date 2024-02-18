@@ -23,7 +23,7 @@ Este é um simulador de sensor MiCS-6814 que gera dados fictícios para simular 
 5. Instale as dependências do Python:
 
     ```bash
-    pip install -r requirements
+    pip install -r requirements.txt
     ```
 
 ## Uso
