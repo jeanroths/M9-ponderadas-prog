@@ -62,3 +62,7 @@ Este é um simulador de sensor MiCS-6814 que gera dados fictícios para simular 
 
 
 ## Vídeo
+
+
+https://github.com/jeanroths/M9-ponderadas-prog/assets/99195775/4476ab16-f11f-43dd-84fc-425f291b551b
+
