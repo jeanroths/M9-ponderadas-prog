@@ -121,3 +121,9 @@ JSON com dados dos sensores gerados aleatoriamente
 Mensagem JSON recebida com sucesso, contendo os mesmos campos e valores da mensagem publicada
 
 ## Vídeo
+
+https://github.com/jeanroths/M9-ponderadas-prog/assets/99195775/49b4902f-59ed-4019-b693-df485ac5f5ae
+
+
+
+
