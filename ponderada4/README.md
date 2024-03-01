@@ -158,3 +158,7 @@ Essa função Client é responsável por configurar e iniciar o cliente MQTT. El
 
 
 ## Vídeo
+
+
+https://github.com/jeanroths/M9-ponderadas-prog/assets/99195775/16668282-439b-47a9-9162-8859cfc9ad21
+
