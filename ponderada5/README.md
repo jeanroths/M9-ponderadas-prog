@@ -45,3 +45,7 @@ go run *.go
 - O Metabase está configurado para se conectar ao banco de dados SQLite e fornecer uma interface para visualização dos dados.
 
 ## Vídeo
+
+https://github.com/jeanroths/M9-ponderadas-prog/assets/99195775/fe3396bd-d400-4955-a2c4-a0458292134a
+
+
