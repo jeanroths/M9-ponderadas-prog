@@ -1,51 +1,40 @@
-# Integração do simulador com Metabase
+## Integração entre HiveMQ, Kafka e Banco de Dados SQLite
 
-Esta aplicação tem como objetivo fornecer uma visão geral do processo de publicação de informações em um tópico MQTT por um publicador (publisher), leitura dessas informações por um assinante (subscriber) e inserção desses dados em um banco de dados SQLite. Além disso, abordará a integração do banco de dados com um dashboard no Metabase.
+Esta aplicação integra um simulador de dados MQTT com um banco de dados SQLite via Kafka. O simulador gera dados aleatórios de NH3, CO e NO2 e os publica em um tópico MQTT no HiveMQ. Um consumidor Kafka assina esse tópico, lê os dados e os insere no banco de dados SQLite.
 
-## Requisitos
+### Funcionamento dos Códigos
 
-- GoLang instalado no sistema
-- Docker instalado no sistema
-- MQTT Broker configurado (HiveMQ ou outro)
-- Metabase Docker Container
+#### Publisher (publisher.go)
 
-## Configuração
+O código `publisher.go` atua como um publisher MQTT que gera dados aleatórios de NH3, CO e NO2 e os publica em um tópico MQTT no HiveMQ. Ele utiliza a biblioteca Eclipse Paho MQTT para se conectar ao broker MQTT e publicar mensagens contendo os dados gerados. O processo de geração e publicação de dados ocorre em um loop infinito, com um intervalo de 2 segundos entre cada publicação.
 
-1. **Configuração do Ambiente MQTT**
+Para executar o publisher, siga estas etapas:
 
-- Certifique-se de que o broker MQTT esteja configurado corretamente e acessível.
-- Defina as variáveis de ambiente BROKER_ADDR, HIVE_USER, e HIVE_PSWD em um arquivo .env contendo as informações necessárias para se conectar ao broker MQTT.
+1. Configure as variáveis de ambiente `BROKER_ADDR`, `HIVE_USER` e `HIVE_PSWD` no arquivo `.env` com as informações necessárias para se conectar ao broker MQTT.
+2. Execute o comando `go run main.go` para iniciar o publisher.
 
-2. **Configuração do Metabase**
+#### Consumer (consumer.go)
 
-- Execute o Metabase em um contêiner Docker usando o seguinte comando:
+O código `consumer.go` atua como um consumidor Kafka que se inscreve em um tópico Kafka, lê mensagens contendo os dados gerados pelo publisher e os insere em um banco de dados SQLite. Ele utiliza a biblioteca confluent-kafka-go para se conectar ao cluster Kafka e consumir mensagens do tópico especificado. Ao receber uma mensagem, o consumidor Kafka a converte em um formato adequado e a insere no banco de dados SQLite.
 
-```
-docker run -d -p 3000:3000 -v $(pwd)/db.db:/db.db --name metabase metabase/metabase
-```
-## Execução 
+Para executar o consumidor, siga estas etapas:
 
-1. **Compilação e Execução do Código Go**
+1. Certifique-se de ter um broker Kafka em execução e configurado corretamente.
+2. Execute o comando `go run consumer.go` para iniciar o consumidor.
 
-Para iniciar o publisher, subscriber e criar o banco de dados com a função para inserir dados, basta apenas rodar o seguinte comando:
-```
-go run *.go
-```
+### Execução
 
-2. **Visualização de dados no Metabase**
+1. Certifique-se de que o broker MQTT (HiveMQ) e o broker Kafka estejam configurados e em execução.
+2. Configure as variáveis de ambiente no arquivo `.env` com as informações necessárias para se conectar ao broker MQTT.
+3. Execute o publisher MQTT com o comando `go run main.go`.
+4. Execute o consumidor Kafka com o comando `go run consumer.go`.
 
-- Acesse o Metabase no navegador utilizando o endereço `localhost:3000`.
-- Configure o banco de dados SQLite como uma fonte de dados no Metabase.
-- Crie consultas e dashboards para visualizar os dados inseridos pelo subscriber no banco de dados SQLite.
+Após a execução bem-sucedida do publisher e do consumidor, os dados gerados pelo publisher serão publicados no tópico MQTT e consumidos pelo consumidor Kafka, que os inserirá no banco de dados SQLite.
 
-## Explicação
+Para visualizar os dados no banco de dados SQLite, você pode usar ferramentas como o SQLite CLI ou um cliente de banco de dados SQLite GUI.
 
-- O `publisher` gera dados aleatórios representando níveis de NH3, CO e NO2, e os publica em um tópico MQTT.
-- O `subscriber` se inscreve nesse tópico e, ao receber os dados, os converte em um formato adequado e os insere no banco de dados SQLite.
-- O Metabase está configurado para se conectar ao banco de dados SQLite e fornecer uma interface para visualização dos dados.
+### Considerações
 
-## Vídeo
+Certifique-se de ter todas as dependências instaladas e configuradas corretamente. Além disso, verifique se as configurações de segurança, como credenciais de acesso, estão corretas para garantir uma conexão bem-sucedida aos brokers MQTT e Kafka.
 
-https://github.com/jeanroths/M9-ponderadas-prog/assets/99195775/fe3396bd-d400-4955-a2c4-a0458292134a
-
-
+# Demonstração
