@@ -38,3 +38,6 @@ Para visualizar os dados no banco de dados SQLite, você pode usar ferramentas c
 Certifique-se de ter todas as dependências instaladas e configuradas corretamente. Além disso, verifique se as configurações de segurança, como credenciais de acesso, estão corretas para garantir uma conexão bem-sucedida aos brokers MQTT e Kafka.
 
 # Demonstração
+
+https://github.com/jeanroths/M9-ponderadas-prog/assets/99195775/5b24d3c9-00de-4062-a98c-8ce621ae8bb8
+
